@@ -1,166 +1,166 @@
-# Análise de Refeições dos Comensais do RU — PRAE 2024
+# University Restaurant Meal Analysis — PRAE 2024
 
-Projeto desenvolvido em Python para realizar uma **análise exploratória e estatística dos registros de refeições dos comensais dos Restaurantes Universitários (RU)** da Universidade Federal do Ceará (UFC), utilizando dados referentes ao ano de 2024.
+This project was developed in Python to perform an **exploratory and statistical analysis of meal records from customers of the University Restaurants (RUs)** at the Federal University of Ceará (UFC), using data from 2024.
 
-O projeto utiliza técnicas de **estatística descritiva, visualização de dados, teste de normalidade e probabilidade** para investigar o comportamento dos registros de refeições de diferentes perfis de comensais.
+The project applies **descriptive statistics, data visualization, normality testing, and probability analysis** to investigate meal consumption patterns across different customer profiles.
 
-## Objetivos
+## Objectives
 
-* Analisar os diferentes perfis de comensais;
-* Calcular estatísticas descritivas sobre as refeições;
-* Identificar a participação de cada perfil no total de refeições;
-* Analisar a distribuição da quantidade de refeições por CPF;
-* Verificar a normalidade da distribuição utilizando o teste de Shapiro-Wilk;
-* Calcular a probabilidade de uma pessoa na fila do almoço ser não pagante;
-* Calcular a probabilidade de um docente ter jantado dado que almoçou;
-* Utilizar gráficos para facilitar a interpretação dos dados.
+- Analyze different customer profiles;
+- Calculate descriptive statistics for meal records;
+- Identify the contribution of each profile to the total number of meals;
+- Analyze the distribution of meals per CPF (Brazilian individual taxpayer identification number);
+- Assess the normality of the distribution using the Shapiro-Wilk test;
+- Calculate the probability that a person in the lunch queue belongs to the non-paying category;
+- Calculate the probability that a faculty member had dinner given that they had lunch;
+- Use visualizations to facilitate data interpretation.
 
 ## Dataset
 
-O dataset contém registros de comensais e refeições realizadas nos Restaurantes Universitários durante 2024.
+The dataset contains records of customers and meals served at the University Restaurants throughout 2024.
 
-**Ano analisado:** 2024
+**Year analyzed:** 2024
 
-Entre as principais variáveis utilizadas estão:
+The main variables used include:
 
-* `cpf_cnpj`
-* `vinculo_comensal`
-* `categoria_acesso`
-* `tipo_refeicao`
-* `quantidade_refeicao`
+- `cpf_cnpj`
+- `vinculo_comensal`
+- `categoria_acesso`
+- `tipo_refeicao`
+- `quantidade_refeicao`
 
-Dataset utilizado:
+Dataset:
 
 https://raw.githubusercontent.com/bhpp12/datasets/refs/heads/main/17_prae_comensais_2024.csv
 
-## Tecnologias utilizadas
+## Technologies Used
 
-* Python
-* Pandas
-* Matplotlib
-* Seaborn
-* SciPy
+- Python
+- Pandas
+- Matplotlib
+- Seaborn
+- SciPy
 
-## Análises realizadas
+## Analysis Performed
 
-### 1. Análise dos perfis dos comensais
+### 1. Customer Profile Analysis
 
-Foi criada uma nova variável chamada `perfil`, combinando três informações:
+A new variable called `perfil` was created by combining three pieces of information:
 
 ```text
-vínculo do comensal + categoria de acesso + tipo de refeição
+Customer affiliation + Access category + Meal type
 ```
 
-Por exemplo, um perfil pode representar a combinação entre:
+For example, a profile may represent the following combination:
 
 ```text
-Discente + Não Pagante + Almoço
+Student + Non-Paying + Lunch
 ```
 
-A partir desses perfis, são calculadas estatísticas como:
+Based on these profiles, the following statistics are calculated:
 
-* Número de CPFs distintos;
-* Total de refeições;
-* Média de refeições;
-* Mediana;
-* Desvio padrão;
-* Mínimo;
-* Máximo;
-* Participação percentual no total de refeições.
+- Number of distinct CPFs;
+- Total number of meals;
+- Average number of meals;
+- Median;
+- Standard deviation;
+- Minimum;
+- Maximum;
+- Percentage contribution to the total number of meals.
 
-A participação percentual é calculada considerando o total de refeições registradas no dataset.
+The percentage contribution is calculated based on the total number of meal records in the dataset.
 
-## 2. Distribuição das refeições por CPF
+### 2. Meal Distribution per CPF
 
-Para analisar o comportamento individual dos comensais, é calculado o total de refeições registradas para cada CPF.
+To analyze individual customer behavior, the total number of meals recorded for each CPF is calculated.
 
-A distribuição é apresentada por meio de dois histogramas.
+The distribution is presented using two histograms.
 
-### Histograma completo
+**Full Histogram**
 
-O primeiro gráfico apresenta todos os valores de refeições por CPF.
+The first chart displays all meal counts per CPF.
 
-Esse gráfico permite observar a distribuição geral, mas valores muito altos podem comprimir visualmente a maior parte dos dados próximos ao início do eixo.
+This visualization provides an overview of the overall distribution, although extremely high values may compress most observations near the beginning of the axis.
 
-### Histograma limitado
+**Limited Histogram**
 
-O segundo histograma considera apenas CPFs com menos de 500 refeições.
+The second histogram considers only CPFs with fewer than 500 recorded meals.
 
-Essa limitação permite observar com maior clareza a região de maior concentração dos dados.
+This restriction provides a clearer view of the region where most observations are concentrated.
 
-## 3. Teste de normalidade
+### 3. Normality Test
 
-Foi utilizado o teste de **Shapiro-Wilk** para verificar se a distribuição do total de refeições por CPF pode ser considerada aproximadamente normal.
+The **Shapiro-Wilk test** was used to assess whether the distribution of total meals per CPF can be considered approximately normal.
 
-A hipótese é avaliada utilizando nível de significância de 5%.
+The hypothesis is evaluated using a 5% significance level.
 
 ```text
-H₀: os dados seguem uma distribuição normal
-H₁: os dados não seguem uma distribuição normal
+H₀: The data follows a normal distribution.
+H₁: The data does not follow a normal distribution.
 ```
 
-A interpretação utilizada no projeto é:
+The interpretation used in the project is:
 
-* `p > 0,05` → não há evidência suficiente para rejeitar a normalidade;
-* `p ≤ 0,05` → rejeita-se a hipótese de normalidade.
+- `p > 0.05` → There is insufficient evidence to reject the normality assumption.
+- `p ≤ 0.05` → The null hypothesis of normality is rejected.
 
-## 4. Probabilidade de uma pessoa ser não pagante no almoço
+### 4. Probability of a Non-Paying Customer Having Lunch
 
-Nesta etapa, são considerados somente os registros de **almoço**.
+At this stage, only **lunch** records are considered.
 
-A quantidade de refeições não pagantes é dividida pelo total de refeições de almoço:
+The number of non-paying meals is divided by the total number of lunch meals:
 
 ```text
-P(Não Pagante | Almoço)
+P(Non-Paying | Lunch)
 =
-Refeições de almoço não pagantes
+Non-paying lunch meals
 /
-Total de refeições de almoço
+Total lunch meals
 ```
 
-O resultado representa a proporção de refeições de almoço associadas à categoria de acesso **não pagante**.
+The result represents the proportion of lunch meals associated with the **non-paying** access category.
 
-## 5. Probabilidade condicional para docentes
+### 5. Conditional Probability for Faculty Members
 
-Também é analisado o comportamento dos docentes que realizaram refeições no RU.
+The meal consumption behavior of faculty members at the University Restaurants is also analyzed.
 
-Primeiramente, são identificados:
+First, the following groups are identified:
 
-* CPFs de docentes que almoçaram;
-* CPFs de docentes que jantaram.
+- Faculty members who had lunch;
+- Faculty members who had dinner.
 
-Em seguida, é calculada a interseção entre esses dois conjuntos.
+Next, the intersection between these two sets is calculated.
 
-A probabilidade condicional utilizada é:
+The conditional probability used is:
 
 ```text
-P(Jantar | Almoço)
+P(Dinner | Lunch)
 =
-P(Jantar ∩ Almoço)
+P(Dinner ∩ Lunch)
 /
-P(Almoço)
+P(Lunch)
 ```
 
-Na implementação, isso corresponde a:
+In the implementation, this corresponds to:
 
 ```python
 len(docente_interseccao) / len(docente_almoco)
 ```
 
-Assim, o resultado representa a probabilidade de um docente ter jantado **dado que ele já havia almoçado**.
+Therefore, the result represents the probability that a faculty member had dinner **given that they had already had lunch**.
 
-## Visualizações
+## Data Visualizations
 
-O projeto utiliza histogramas para visualizar a distribuição do total de refeições por CPF.
+The project uses histograms to visualize the distribution of total meals per CPF.
 
-São produzidos:
+Two visualizations are generated:
 
-1. **Distribuição do total de refeições por CPF**
-2. **Distribuição do total de refeições por CPF até 500 refeições**
+1. **Distribution of total meals per CPF**
+2. **Distribution of total meals per CPF, limited to 500 meals**
 
-As visualizações são construídas utilizando `Seaborn` e `Matplotlib`.
+The visualizations are created using `Seaborn` and `Matplotlib`.
 
-## Bibliotecas utilizadas
+## Libraries Used
 
 ```python
 import pandas as pd
@@ -169,29 +169,29 @@ import seaborn as sns
 from scipy.stats import shapiro
 ```
 
-## Como executar
+## How to Run
 
-### 1. Clone o repositório
+### 1. Clone the Repository
 
 ```bash
-git clone URL_DO_SEU_REPOSITORIO
+git clone REPOSITORY_URL
 ```
 
-### 2. Instale as dependências
+### 2. Install Dependencies
 
 ```bash
 pip install pandas matplotlib seaborn scipy
 ```
 
-### 3. Execute o código
+### 3. Run the Script
 
 ```bash
 python analise.py
 ```
 
-O código também pode ser executado no **Google Colab**, já que o dataset é carregado diretamente através de uma URL do GitHub.
+The code can also be executed in **Google Colab**, since the dataset is loaded directly from a GitHub URL.
 
-## Estrutura do projeto
+## Project Structure
 
 ```text
 ├── analise.py
@@ -200,30 +200,30 @@ O código também pode ser executado no **Google Colab**, já que o dataset é c
 └── README.md
 ```
 
-## Principais conceitos aplicados
+## Key Concepts Applied
 
-Este projeto utiliza conceitos de:
+This project applies concepts related to:
 
-* Estatística descritiva;
-* Média e mediana;
-* Desvio padrão;
-* Distribuição de frequência;
-* Histogramas;
-* Teste de normalidade;
-* Shapiro-Wilk;
-* Probabilidade;
-* Probabilidade condicional;
-* Operações com conjuntos;
-* Agrupamento de dados com Pandas.
+- Descriptive Statistics;
+- Mean and Median;
+- Standard Deviation;
+- Frequency Distribution;
+- Histograms;
+- Normality Testing;
+- Shapiro-Wilk Test;
+- Probability;
+- Conditional Probability;
+- Set Operations;
+- Data Grouping with Pandas.
 
-## Conclusão
+## Conclusion
 
-A análise permite explorar o comportamento dos registros de refeições dos comensais dos Restaurantes Universitários em 2024, observando diferenças entre perfis, distribuição do número de refeições por CPF e relações probabilísticas entre diferentes tipos de refeições.
+This analysis provides insights into meal consumption records at the University Restaurants throughout 2024, highlighting differences between customer profiles, the distribution of meals per CPF, and probabilistic relationships between different meal types.
 
-O projeto também demonstra a aplicação prática de conceitos de **estatística e probabilidade utilizando Python**, integrando tratamento de dados, análise exploratória e visualização.
+The project also demonstrates the practical application of **statistics and probability using Python**, combining data processing, exploratory data analysis, and visualization.
 
-## Autor
+## Author
 
 **Bruno Henrique Pacheco Prudêncio**
 
-Projeto acadêmico desenvolvido para estudo de **Ciência de Dados, Estatística e Análise Exploratória de Dados**.
+Academic project developed as part of studies in **Data Science, Statistics, and Exploratory Data Analysis**.
